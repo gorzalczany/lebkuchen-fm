@@ -6,7 +6,9 @@ import * as SpeechService from './speech-service';
 import * as YouTubePlayerService from './youtube-player-service';
 
 function connect(): (() => void) {
-  const client = io('/api/player');
+  const client = io('/api/player', {
+    transports: ['websocket'],
+  });
   client.on('connect', () => console.log('Connected to event stream WebSocket'));
 
   client.on('message', (eventData: EventData, sendResponse: Function) => {
